@@ -72,20 +72,7 @@ hEFAwcD   Gg8FBgcDDAQKDAUJBwIFDwcIBg               wHCAM
 
 
       <h4>Team Members</h4>
-      <section class="members flex">
-        <div class="member">
-          <a>
-            <!-- <div class="member-icon"><img src="./assets/avatars/depy.png"></div> -->
-            <div class="member-name">depy</div>
-          </a>
-        </div>
-
-        <div class="member">
-            <a>
-              <!-- <div class="member-icon"><img src="./assets/avatars/depy.png"></div> -->
-              <div class="member-name">Seven7</div>
-            </a>
-          </div>
+      <section class="members flex" id="member-container">
       </section>
 
     </main>
@@ -102,6 +89,30 @@ hEFAwcD   Gg8FBgcDDAQKDAUJBwIFDwcIBg               wHCAM
         return response.json();
     })
     .then(data => {
+        var memberContainer = document.getElementById('member-container');
+        data.members.forEach(function(member) {
+
+            var linkElement = document.createElement('a');
+            var nameDiv = document.createElement('div');
+            nameDiv.className = 'member-name';
+            nameDiv.textContent = member.id;
+            
+
+            var iconDiv = document.createElement('div');
+            iconDiv.className = 'member-icon';
+            var imgElement = document.createElement('img');
+            imgElement.src = member.avatar;
+            iconDiv.appendChild(imgElement); 
+
+            linkElement.appendChild(iconDiv);
+            linkElement.appendChild(nameDiv);
+
+            var memberDiv = document.createElement('div');
+            memberDiv.className = 'member';
+            memberDiv.appendChild(linkElement);
+
+            memberContainer.appendChild(memberDiv);
+        });
 
         console.log(data);
     })
